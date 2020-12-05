@@ -3,7 +3,6 @@ import * as selectors  from './selectors';
 import { push as pushRoute, goBack } from 'connected-react-router';
 import {PageRoutes} from '../Constants/constants';
 import {find,propEq,findIndex,all} from 'ramda';
-import cuid from 'cuid';
 import {userData} from '../MockData/mock-data-login.js';
 export function beginAction(originalAction, payload) {
     const action = {...originalAction, type: beginActionType(originalAction.type)};
@@ -48,13 +47,21 @@ function* userLogin(action)
     {
         yield put(successAction(action,true));
         yield put(pushRoute({
-            pathname: PageRoutes.Apply,
+            pathname: PageRoutes.Home,
         }));
     }else{
         yield put(failedAction(action,{'msg':'Please enter valid credentials'}));
     }
 
 }
+function* submitApplication(action)
+{
+    window.alert("Application submitted Successfully "+action.payload.applicationId);
+    yield put(pushRoute({
+        pathname: PageRoutes.Home,
+    }));
+}
 export default function* rootAppSaga() {
     yield takeLatest('HACKATHON/LOGIN', userLogin);
+    yield takeLatest('HACKATHON/SUBMIT', submitApplication);
 }

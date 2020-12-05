@@ -1,32 +1,52 @@
 import {getStudentCollegeData} from '../duck/selectors';
 import React, { useState } from 'react';
 import {useDispatch,useSelector } from 'react-redux';
-
+import {submitApplication} from '../duck/actions';
 const InputComponent = (props) => {
 
     return (
             <div className='form-group row'>
                <label htmlFor={props.label}>{props.label}</label>
-              <input className='input' value={props.value} disabled={props.disabled} 
+              <input className='input' defaultValue={props.value} disabled={props.disabled} 
               type='text' placeholder={props.label} onChange={(e)=>props.handleInputChange(e,props.label)}/>
             </div>
     );
 }
 export const ApplicationPane = () => {
    const student_data = useSelector(getStudentCollegeData);
+   const [studentForm,setStudentForm]=useState(student_data);
+   const [error,setErrorMsg]=useState(null);
+   const dispatch = useDispatch();
     const handleApplicationSubmit = (e) => {
         e.preventDefault();
+        console.log("studentForm ",studentForm);
+        Object.keys(studentForm).every((value,index) => {
+              if(studentForm[value] == '')
+              {
+                setErrorMsg('Please fill all details');
+                return false;
+              }else{
+                  return true;
+              }
+        });
+        if(!error)
+        {
+            dispatch(submitApplication({...studentForm}));
+        }
     };
    const handleInputChange = (e,key) => {
-
+       let temp_data = {...studentForm};
+       temp_data[key]=e.target.value;
+       setStudentForm({...temp_data});
+       setErrorMsg(null);
    };
-   const autoPopulateData = ['college','city','user'];
+   const autoPopulateData = ['College','City','StudentName'];
   const formInputElements = Object.keys(student_data).map((value,index) => {
       let temp_obj = {'label':value,
                         'value':student_data[value],
                         'disabled':false,
                     };
-        if(value.indexOf(autoPopulateData) != -1)
+        if(autoPopulateData.indexOf(value) !== -1)
         {
             temp_obj.disabled = true;
         }
@@ -43,9 +63,9 @@ export const ApplicationPane = () => {
               <button className='btn' type='submit'>Apply</button>
             </div>
             
-            {/* {errorMsg && <div className='form-group row errorMsg'>
-              <span>{errorMsg}</span>
-            </div>} */}
+            {error && <div className='form-group row errorMsg'>
+              <span>{error}</span>
+            </div>}
           </form>
         </div>
       )

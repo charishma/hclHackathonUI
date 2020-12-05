@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
-import {login,logout,invalidCredentials} from './actions';
+import {login,logout,invalidCredentials,submitApplication} from './actions';
 import { successActionType, failedActionType } from './saga';
 import {CollegeData} from '../Constants/constants';
 
@@ -24,10 +24,20 @@ const logInError =  handleActions({
 const collegeData = handleActions({
 
 },CollegeData);
+const submittedApplications = handleActions({
+    [submitApplication]:(state,{payload}) => {
+        return {
+            ...state,
+            ...payload.applicationData,
+        };
+    }
+
+},{});
  const appReducers = combineReducers({
     loggedInStatus,
     logInError,
-    collegeData
+    collegeData,
+    submittedApplications
 });
 
 export default appReducers;

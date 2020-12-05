@@ -1,6 +1,8 @@
 export const PageRoutes = {
     login:'/',
     Apply:'/apply',
+    Home:'/home',
+    Track:'/track',
 };
 
 export const CollegeData = {

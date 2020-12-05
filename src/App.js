@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import LoginPane from './Login/LoginPane';
 import {ApplicationPane} from './Apply/ApplicationPane';
+import {LandingPage} from './LandingPage/LandingPage';
 import {PageRoutes} from './Constants/constants';
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
       <ConnectedRouter history={store.history}>
         <Route exact path={PageRoutes.login}>
           <LoginPane/>
+        </Route>
+        <Route exact path={PageRoutes.Home}>
+          <LandingPage/>
         </Route>
         <Route exact path={PageRoutes.Apply}>
           <ApplicationPane/>
