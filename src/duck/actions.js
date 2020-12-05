@@ -18,7 +18,9 @@ export const submitApplication = createAction(`${PREFIX}/SUBMIT`, payload => {
     const applicationData = {};
     applicationData[applicationId]={ 
         id: applicationId,
+        status:'Submitted',
         ...payload
+        
         };
      
 return {

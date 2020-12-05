@@ -1,9 +1,8 @@
-import {select, call, put, takeLatest, } from 'redux-saga/effects';
-import * as selectors  from './selectors';
-import { push as pushRoute, goBack } from 'connected-react-router';
+import { put, takeLatest, } from 'redux-saga/effects';
+import { push as pushRoute } from 'connected-react-router';
 import {PageRoutes} from '../Constants/constants';
-import {find,propEq,findIndex,all} from 'ramda';
 import {userData} from '../MockData/mock-data-login.js';
+
 export function beginAction(originalAction, payload) {
     const action = {...originalAction, type: beginActionType(originalAction.type)};
     if (payload) {

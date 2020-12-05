@@ -6,6 +6,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import LoginPane from './Login/LoginPane';
 import {ApplicationPane} from './Apply/ApplicationPane';
 import {LandingPage} from './LandingPage/LandingPage';
+import {TrackingPane} from './Tracking/TrackingPane';
 import {PageRoutes} from './Constants/constants';
 function App() {
   return (
@@ -19,6 +20,9 @@ function App() {
         </Route>
         <Route exact path={PageRoutes.Apply}>
           <ApplicationPane/>
+        </Route>
+        <Route exact path={PageRoutes.Track}>
+          <TrackingPane/>
         </Route>
       </ConnectedRouter>
     </Provider>
