@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import {useDispatch,useSelector } from 'react-redux';
-import { push as pushRoute } from "connected-react-router";
-import {PageRoutes} from '../Constants/constants';
 import {login,invalidCredentials} from '../duck/actions';
 import{getLogInErrorMsg} from '../duck/selectors';
-import loginStyle from './Login.css';
+import './Login.css';
 
 const LoginPane = ()=>{
 
@@ -31,10 +29,10 @@ return (
           <form  onSubmit={handleLogin} style={{float: 'left',margin: '2% 10%'}}>
             <h4 style={{textAlign:'center'}}>Login</h4>
             <div className='form-group row'>
-              <input className='input' type='text' placeholder='Email' onChange={(e)=>{dispatch(invalidCredentials({'msg':null}));setUserName(e.target.value)}}/>
+              <input className='input' type='text' placeholder='Username' onChange={(e)=>{dispatch(invalidCredentials({'msg':null}));setUserName(e.target.value)}}/>
             </div>
             <div className='form-group row'>
-              <input className='input' type='password' placeholder='Password' onChange={(e)=>setUserPassword(e.target.value)}/>
+              <input className='input' type='password' placeholder='Password' onChange={(e)=>{dispatch(invalidCredentials({'msg':null}));setUserPassword(e.target.value)}}/>
             </div>
             <div className='form-group row' style={{ font:'400 13.3333px Arial'}}>
               <input type="checkbox"  value="Remember me"/>

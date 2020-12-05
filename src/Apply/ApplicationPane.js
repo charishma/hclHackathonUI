@@ -20,25 +20,28 @@ export const ApplicationPane = () => {
     const handleApplicationSubmit = (e) => {
         e.preventDefault();
         console.log("studentForm ",studentForm);
+        let errorFlag = false;
         Object.keys(studentForm).every((value,index) => {
               if(studentForm[value] == '')
               {
                 setErrorMsg('Please fill all details');
+                errorFlag = true;
                 return false;
               }else{
                   return true;
               }
         });
-        if(!error)
+        if(!errorFlag)
         {
+            setErrorMsg(null);
             dispatch(submitApplication({...studentForm}));
+           
         }
     };
    const handleInputChange = (e,key) => {
        let temp_data = {...studentForm};
        temp_data[key]=e.target.value;
        setStudentForm({...temp_data});
-       setErrorMsg(null);
    };
    const autoPopulateData = ['College','City','StudentName'];
   const formInputElements = Object.keys(student_data).map((value,index) => {
@@ -51,7 +54,7 @@ export const ApplicationPane = () => {
             temp_obj.disabled = true;
         }
        return (
-           <InputComponent {...temp_obj} handleInputChange={handleInputChange}/>
+           <InputComponent key={'forminput'+index} {...temp_obj} handleInputChange={handleInputChange}/>
        )
    });
     return (
