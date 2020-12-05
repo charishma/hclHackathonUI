@@ -31,7 +31,7 @@ return (
           <form  onSubmit={handleLogin} style={{float: 'left',margin: '2% 10%'}}>
             <h4 style={{textAlign:'center'}}>Login</h4>
             <div className='form-group row'>
-              <input className='input' type='text' placeholder='Email' onChange={(e)=>setUserName(e.target.value)}/>
+              <input className='input' type='text' placeholder='Email' onChange={(e)=>{dispatch(invalidCredentials({'msg':null}));setUserName(e.target.value)}}/>
             </div>
             <div className='form-group row'>
               <input className='input' type='password' placeholder='Password' onChange={(e)=>setUserPassword(e.target.value)}/>
